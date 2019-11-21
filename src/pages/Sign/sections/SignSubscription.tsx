@@ -284,50 +284,40 @@ export const SubscriptionComponent: React.SFC<SubscriptionComponentProps> = ({
           }}
         >
           {({ track }) => (
-            <StorageContainer>
-              {({ session }) => (
-                <OfferContainer>
-                  {(currentOffer) => (
-                    <StateComponent
-                      signState={
-                        data && data.signStatus && data.signStatus.signState
-                      }
-                      collectStatus={
-                        data && data.signStatus && data.signStatus.collectStatus
-                      }
-                      error={error}
-                      trackSignCompleted={track}
-                      runAdtraction={() => {
-                        adtraction(
-                          parseFloat(
-                            currentOffer.insurance.cost.monthlyGross.amount,
-                          ),
-                          currentOffer.member.id,
-                          signEmail,
-                          currentOffer.redeemedCampaigns !== null &&
-                            currentOffer.redeemedCampaigns.length !== 0
-                            ? currentOffer.redeemedCampaigns[0].code
-                            : null,
-                          currentOffer.insurance.type,
-                        )
-                      }}
-                      runStudentkortet={() => {
-                        if (
-                          session &&
-                          session.getSession() &&
-                          session.getSession()!.code === 'studentkortet'
-                        ) {
-                          trackStudentkortet(
-                            currentOffer.member.id,
-                            currentOffer.insurance.cost.monthlyGross.amount,
-                          )
-                        }
-                      }}
-                    />
-                  )}
-                </OfferContainer>
+            <OfferContainer>
+              {(currentOffer) => (
+                <StateComponent
+                  signState={
+                    data && data.signStatus && data.signStatus.signState
+                  }
+                  collectStatus={
+                    data && data.signStatus && data.signStatus.collectStatus
+                  }
+                  error={error}
+                  trackSignCompleted={track}
+                  runAdtraction={() => {
+                    adtraction(
+                      parseFloat(
+                        currentOffer.insurance.cost.monthlyGross.amount,
+                      ),
+                      currentOffer.member.id,
+                      signEmail,
+                      currentOffer.redeemedCampaigns !== null &&
+                        currentOffer.redeemedCampaigns.length !== 0
+                        ? currentOffer.redeemedCampaigns[0].code
+                        : null,
+                      currentOffer.insurance.type,
+                    )
+                  }}
+                  runStudentkortet={() => {
+                    trackStudentkortet(
+                      currentOffer.member.id,
+                      currentOffer.insurance.cost.monthlyGross.amount,
+                    )
+                  }}
+                />
               )}
-            </StorageContainer>
+            </OfferContainer>
           )}
         </TrackAction>
       </Mount>
