@@ -8,14 +8,10 @@ import { Query } from 'react-apollo'
 import styled, { keyframes } from 'react-emotion'
 import { Mount } from 'react-lifecycle-components/dist'
 import { Redirect } from 'react-router-dom'
-import {
-  getUtmParamsFromCookie,
-  TrackAction,
-  trackStudentkortet,
-} from 'utils/tracking'
+import { getUtmParamsFromCookie, TrackAction } from 'utils/tracking'
 import { CurrentLanguage } from '../../../components/utils/CurrentLanguage'
 import { OfferContainer } from '../../../containers/OfferContainer'
-import { adtraction } from '../../../utils/tracking'
+import { adtraction, trackStudentkortet } from '../../../utils/tracking'
 
 const spin = keyframes({
   from: { transform: 'rotate(0deg)' },
