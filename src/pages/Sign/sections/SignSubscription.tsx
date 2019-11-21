@@ -15,7 +15,6 @@ import {
 } from 'utils/tracking'
 import { CurrentLanguage } from '../../../components/utils/CurrentLanguage'
 import { OfferContainer } from '../../../containers/OfferContainer'
-import { StorageContainer } from '../../../utils/StorageContainer'
 import { adtraction } from '../../../utils/tracking'
 
 const spin = keyframes({
