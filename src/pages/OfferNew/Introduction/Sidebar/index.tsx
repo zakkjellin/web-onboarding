@@ -10,6 +10,7 @@ import gql from 'graphql-tag'
 import { Button, TextButton } from 'new-components/buttons'
 import * as React from 'react'
 import { Mutation } from 'react-apollo'
+import { useTextKeys } from 'utils/hooks/useTextKeys'
 import { formatPostalNumber } from 'utils/postalNumbers'
 import { DiscountCodeModal } from './DiscountCodeModal'
 import { insuranceTypeMapping, otherInsuranceCompanies } from './mock'
@@ -142,7 +143,7 @@ const PriceNet = styled.div`
   text-decoration: line-through;
   margin-bottom: 0.5rem;
   position: absolute;
-  top: 0;
+  top: -1rem;
 `
 
 const PriceNumbers = styled.div`
@@ -232,6 +233,9 @@ export const Sidebar = React.forwardRef<HTMLDivElement, Props>(
       discountCodeModalIsOpen,
       setDiscountCodeModalIsOpen,
     ] = React.useState(false)
+
+    const textKeys = useTextKeys()
+
     const monthlyCostDeduction =
       offer.redeemedCampaigns.length > 0 &&
       isMonthlyCostDeduction(offer.redeemedCampaigns[0].incentive)
@@ -240,18 +244,10 @@ export const Sidebar = React.forwardRef<HTMLDivElement, Props>(
       <Wrapper ref={ref}>
         <Container sticky={sticky}>
           {monthlyCostDeduction && (
-            <DiscountInfo>
-              <TranslationsConsumer textKey="SIDEBAR_ACTIVE_REFERRAL">
-                {(t) => t}
-              </TranslationsConsumer>
-            </DiscountInfo>
+            <DiscountInfo>{textKeys.SIDEBAR_ACTIVE_REFERRAL}</DiscountInfo>
           )}
           <Header>
-            <PreTitle>
-              <TranslationsConsumer textKey="SIDEBAR_LABEL">
-                {(t) => t}
-              </TranslationsConsumer>
-            </PreTitle>
+            <PreTitle>{textKeys.SIDEBAR_LABEL}</PreTitle>
 
             <Summary>
               <Title>{insuranceTypeMapping[offer.insurance.type]}</Title>
@@ -276,15 +272,9 @@ export const Sidebar = React.forwardRef<HTMLDivElement, Props>(
                   </PriceGross>
 
                   <PriceSuffix>
-                    <PriceUnit>
-                      <TranslationsConsumer textKey="SIDEBAR_PRICE_SUFFIX_UNIT">
-                        {(t) => t}
-                      </TranslationsConsumer>
-                    </PriceUnit>
+                    <PriceUnit>{textKeys.SIDEBAR_PRICE_SUFFIX_UNIT}</PriceUnit>
                     <PriceInterval>
-                      <TranslationsConsumer textKey="SIDEBAR_PRICE_SUFFIX_INTERVAL">
-                        {(t) => t}
-                      </TranslationsConsumer>
+                      {textKeys.SIDEBAR_PRICE_SUFFIX_INTERVAL}
                     </PriceInterval>
                   </PriceSuffix>
                 </PriceNumbers>
@@ -324,11 +314,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, Props>(
           </Body>
 
           <Footer>
-            <Button size="lg">
-              <TranslationsConsumer textKey="SIDEBAR_GETHEDVIG_BUTTON">
-                {(t) => t}
-              </TranslationsConsumer>
-            </Button>
+            <Button size="lg">{textKeys.SIDEBAR_GETHEDVIG_BUTTON}</Button>
 
             <FooterExtraActions>
               {offer.redeemedCampaigns.length === 0 ? (
@@ -337,9 +323,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, Props>(
                     setDiscountCodeModalIsOpen(true)
                   }}
                 >
-                  <TranslationsConsumer textKey="SIDEBAR_ADD_DISCOUNT_BUTTON">
-                    {(t) => t}
-                  </TranslationsConsumer>
+                  {textKeys.SIDEBAR_ADD_DISCOUNT_BUTTON}
                 </TextButton>
               ) : (
                 <Mutation<{ __typename: string }>
@@ -354,9 +338,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, Props>(
                         })
                       }}
                     >
-                      <TranslationsConsumer textKey="SIDEBAR_REMOVE_DISCOUNT_BUTTON">
-                        {(t) => t}
-                      </TranslationsConsumer>
+                      {textKeys.SIDEBAR_REMOVE_DISCOUNT_BUTTON}
                     </TextButton>
                   )}
                 </Mutation>
